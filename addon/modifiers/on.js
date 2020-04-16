@@ -20,11 +20,11 @@ const assertValidEventOptions =
   DEBUG &&
   (() => {
     const ALLOWED_EVENT_OPTIONS = ['capture', 'once', 'passive'];
-    const joinOptions = options => options.map(o => `'${o}'`).join(', ');
+    const joinOptions = (options) => options.map((o) => `'${o}'`).join(', ');
 
     return function (eventOptions, eventName) {
       const invalidOptions = Object.keys(eventOptions).filter(
-        o => !ALLOWED_EVENT_OPTIONS.includes(o)
+        (o) => !ALLOWED_EVENT_OPTIONS.includes(o)
       );
 
       assert(
@@ -55,7 +55,7 @@ function setupListener(element, eventName, callback, eventOptions, params) {
       id: 'ember-on-modifier.partial-application',
       until: '1.0.0',
       url:
-        'https://github.com/emberjs/rfcs/blob/master/text/0471-on-modifier.md'
+        'https://github.com/emberjs/rfcs/blob/master/text/0471-on-modifier.md',
     }
   );
 
@@ -89,17 +89,14 @@ export default setModifierManager(
         element: null,
         eventName: undefined,
         callback: undefined,
-        eventOptions: undefined
+        eventOptions: undefined,
       };
     },
 
     installModifier(
       state,
       element,
-      {
-        positional: [eventName, callback, ...params],
-        named: eventOptions
-      }
+      { positional: [eventName, callback, ...params], named: eventOptions }
     ) {
       state.callback = setupListener(
         element,
@@ -117,10 +114,7 @@ export default setModifierManager(
 
     updateModifier(
       state,
-      {
-        positional: [eventName, callback, ...params],
-        named: eventOptions
-      }
+      { positional: [eventName, callback, ...params], named: eventOptions }
     ) {
       destroyListener(
         state.element,
@@ -143,7 +137,7 @@ export default setModifierManager(
 
     destroyModifier({ element, eventName, callback, eventOptions }) {
       destroyListener(element, eventName, callback, eventOptions);
-    }
+    },
   }),
   class OnModifier { }
 );
